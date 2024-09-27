@@ -58,11 +58,19 @@
          cursor: pointer;   
        }
 
+       .img-profile {
+          object-fit: cover;
+       }
+
  </style>
 
    @if(App::getlocale() == 'ar') 
    
       <style>
+
+        .topbar .dropdown .dropdown-menu  {
+            right: -60%;
+        }
          body {
             direction: rtl;
             text-align: right;
@@ -148,7 +156,6 @@
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                             aria-labelledby="userDropdown">
                          @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-
                          <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}" class="dropdown-item"> 
                           {{ $properties['native'] }}
                           </a>
@@ -190,48 +197,38 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
+                                @php 
+                                   $count =  Auth::user()->unreadnotifications->count(); 
+                                @endphp
+                                 @if($count != 0) 
+                                <span class="badge badge-danger badge-counter">
+                                     @php
+                                      if($count > 5) {
+                                        echo $count . '+'; 
+                                      } else {
+                                        echo $count;
+                                      }
+                                      @endphp
+                                    
+                                </span>
+                                @endif
                             </a>
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
-                                    Alerts Center
+                                    Notifications Center
                                 </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
+                                @foreach(Auth::user()->notifications()->take(5)->get() as $item) 
+                                <a class="dropdown-item d-flex align-items-center {{$item->read_at ? '' : 'bg-light'}}" href="{{$item->data['url']}}?id={{$item->id}}">
                                     <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                                        <div class="small text-gray-500">{{$item->created_at->format('F, D Y')}}</div>
+                                        <span class="font-weight-bold">{{$item->data['msg']}}</span>
                                     </div>
                                 </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                @endforeach
+                               
+                                <a class="dropdown-item text-center small text-gray-500" href="{{route('admin.notifications')}}">Show All Alerts</a>
                             </div>
                         </li>
 
@@ -245,14 +242,27 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                    {{Auth::user()->name}}
+                                </span>
+
+                               @php 
+                                   
+                                  
+                                  
+                                  if(Auth::user()->image) {
+                                    $src= asset('images/'.Auth::user()->image->path);
+                                  }else {
+                                    $src = 'https://ui-avatars.com/api/?background=random&name='.Auth::user()->name;
+                                  }
+                               @endphp
                                 <img class="img-profile rounded-circle"
-                                    src="{{asset('back/img/undraw_profile.svg')}}">
+                                    src="{{$src}}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{route('admin.profile')}}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -265,13 +275,15 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
+                                
+                                
+                                    <a href="#" class="dropdown-item" data-toggle="modal" data-target="#logoutModal"> 
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>{{__('admin.out')}}
+                                    </a>
+                              
+                              
                             </div>
                         </li>
-
 
 
                     </ul>
@@ -325,7 +337,13 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <form action="{{route('logout')}}" method="POST"> 
+                      @csrf
+
+                      <button class="btn btn-primary"> {{__('admin.out')}} </button>
+
+                    </form>
+                   
                 </div>
             </div>
         </div>
@@ -363,6 +381,8 @@
 
           let oldclass = localStorage.getItem('cl')??'bg-gradient-primary';
           document.querySelector('#sidebar_color').classList.add(oldclass);
+
+        
              
                        
            

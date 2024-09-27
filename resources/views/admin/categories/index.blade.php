@@ -31,7 +31,11 @@
            <img width="100px" src="{{$category->img_path}}">  	 	
        </td>
  	 	<td> {{$category->trans_name}}</td>
- 	 	<td> {{$category->products->Count()}}</td>
+ 	 	@if($category->products_count > 0)
+ 	 	<td> {{$category->products_count}}</td>
+ 	 	@else
+ 	 	<td> There is no Products  </td>
+ 	 	@endif
  	 	<td>
             
  	 		<a class="btn btn-sm btn-primary" href="{{route('admin.categories.edit', $category->id)}}"> <i class="fas fa-edit"></i> </a>

@@ -4,7 +4,7 @@
 
 @section('content')
  <h1 class="h3 mb-4 text-gray-800"> {{__('admin.edit_category')}} </h1>
- <form action="{{route('admin.categories.update', $category->id)}}" method="POST">
+ <form action="{{route('admin.categories.update', $category->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('put')
 

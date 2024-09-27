@@ -16,8 +16,10 @@ class Product extends Model
         return $this->belongsTo(category::class)->withDefault();
     }
 
-     public function image() {
-        return $this->morphOne(Image::class, 'imageable')->where('type', 'main');
+    public function image() {
+        return $this->morphOne(Image::class, 'imageable')->withDefault([
+               'path' => 'images/noo_imagee.jpg',
+        ])->where('type', 'main');
     }
 
     public function galary() {
@@ -34,6 +36,15 @@ class Product extends Model
 
     public function order_details() {
         return $this->hasMany(OrderDetail::class);
+    }
+    public function getImgPathAttribute() {
+        $url = 'http://via.placeholder.com/100x80';
+
+        if($this->image) {
+             $url = asset('images/'.$this->image->path);
+        } 
+        return $url;
+
     }
 
 

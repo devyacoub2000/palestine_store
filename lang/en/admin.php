@@ -26,4 +26,20 @@
      'action' => 'action',
       'login_page' => 'login page',
       'login' => 'login',
+      'out' => 'Logout',
+      'price' => 'price',
+      'description' => 'description',
+      'quantity' => 'quantity',
+      'category' => 'category',
+      'home' => 'Home',
+      'Team' => 'Team',
+      'all_teams' => 'Teams',
+      'special' => 'Special' ,
+      'service' => 'Service',
+      'all_services' => 'All Services',
+
+
  ];
+ 
+
+

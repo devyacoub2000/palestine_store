@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
 {
@@ -13,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::latest('id')->paginate(10);
+        $categories = Category::withCount('products')->latest('id')->paginate(10);
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -35,7 +36,7 @@ class CategoryController extends Controller
       $request->validate([
             'name_en' => 'required',
             'name_ar' => 'required',
-            'image' => 'required',
+            'image' => 'required|image',
       ]);
 
       $data = $request->except('_token', 'image');
@@ -97,10 +98,20 @@ class CategoryController extends Controller
             'name_en' => 'required',
             'name_ar' => 'required',
       ]);
-
-      $data = $request->except('_token');
-
-
+ 
+      if($request->hasFile('image')) {
+          if($category->image) {
+             File::delete(public_path('images/'.$category->image->path)); 
+          }
+          $category->image()->delete();
+          $img = $request->file('image');
+          $img_name = rand().time().$img->getClientOriginalName();
+          $img->move(public_path('images'), $img_name);
+          $category->image()->create([
+              'path' => $img_name,
+          ]);
+      }
+     
       $desc = [
               'en' => $request->description_en,
               'ar' => $request->description_ar,

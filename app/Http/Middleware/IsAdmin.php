@@ -18,7 +18,7 @@ class IsAdmin
     {
 
        if (Auth::user()->type == 'customer') {
-           return redirect('/');
+            return redirect('/');
        }
           return $next($request);
      
