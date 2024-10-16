@@ -6,7 +6,7 @@
  <h1 class="h3 mb-4 text-gray-800">All Categories </h1>
 
    @if(session('msg'))
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <div class="alert alert-{{session('type')}} alert-dismissible fade show" role="alert">
 		{{session('msg')}}
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 		<span aria-hidden="true">&times;</span>
@@ -38,7 +38,8 @@
  	 	@endif
  	 	<td>
             
- 	 		<a class="btn btn-sm btn-primary" href="{{route('admin.categories.edit', $category->id)}}"> <i class="fas fa-edit"></i> </a>
+ 	 		<a class="btn btn-sm btn-primary" href="{{route('admin.categories.edit', $category->id)}}"> <i class="fas fa-edit"></i>
+ 	 		 </a>
 
  	 		<form class="d-inline" action="{{route('admin.categories.destroy', $category->id)}}" method="POST">
  	 			@csrf

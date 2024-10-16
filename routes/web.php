@@ -4,8 +4,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\APIController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
-
 
 
 // Route::get('/', function () {
@@ -43,6 +44,15 @@ Route::prefix(LaravelLocalization::setLocale())->group(function() {
             // test Notification 
 
             Route::get('send', [NotificationController::class, 'send']);
+
+            Route::post('/products/{id}/reviews', [ReviewController::class, 'store_rate'])->name('front.store_rate');
+
+            Route::post('store_cart/{id}', [CartController::class, 'store_cart'])->name('front.store_cart');
+
+            Route::get('mycart', [CartController::class, 'mycart'])->name('front.mycart');
+            Route::delete('remove_cart/{id}', [CartController::class, 'remove'])->name('front.remove');
+
+            
           });  
 
 

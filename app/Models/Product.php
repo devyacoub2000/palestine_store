@@ -30,6 +30,12 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function averageRating()
+    {
+       return round($this->reviews()->avg('star'), 1); // Round to one decimal place
+
+    }
+
     public function carts() {
         return $this->hasMany(Cart::class);
     }

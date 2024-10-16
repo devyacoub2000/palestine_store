@@ -38,6 +38,12 @@
       'service' => 'Service',
       'all_services' => 'All Services',
 
+      'cart' => 'My Cart',
+      'total' => 'Total',
+
+      'product' => 'Product' ,
+      
+
 
  ];
  

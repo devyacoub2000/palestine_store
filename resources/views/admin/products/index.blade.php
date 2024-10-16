@@ -6,7 +6,7 @@
  <h1 class="h3 mb-4 text-gray-800">{{__('admin.all_products')}} </h1>
 
    @if(session('msg'))
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <div class="alert alert-{{session('type')}} alert-dismissible fade show" role="alert">
 		{{session('msg')}}
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 		<span aria-hidden="true">&times;</span>

@@ -22,6 +22,11 @@
     <link rel="stylesheet" href="{{asset('assets/css/owl-carousel.css')}}">
 
     <link rel="stylesheet" href="{{asset('assets/css/lightbox.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 
     @yield('css')
 
@@ -95,6 +100,12 @@
                                {{ __('front.products')}} 
                                 
                             </a></li>
+                            @auth
+                            <li class="scroll-to-section"><a href="{{route('front.mycart')}}" {{request()->routeIs('front.mycart') ? 'class=active' : ''}} >
+                               {{ __('admin.cart')}} [{{$carts->Count()}}]
+                                
+                            </a></li>
+                            @endauth
                             
                             
                             <li class="submenu">
@@ -123,6 +134,15 @@
                              @endif
 
                             @endforeach
+
+                            @auth
+                            <li class="scroll-to-section">
+                                <form method="post" action="{{route('logout')}}">
+                                     @csrf
+                                     <button class="btn btn-danger"> Logout</button>
+                                </form>
+                            </li>
+                            @endauth
                         </ul>        
                         <a class='menu-trigger'>
                             <span>Menu</span>
@@ -199,6 +219,7 @@
         </div>
     </footer>
     
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- jQuery -->
     <script src="{{asset('assets/js/jquery-2.1.0.min.js')}}"></script>

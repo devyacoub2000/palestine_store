@@ -93,8 +93,7 @@
    	  	    </div>
    	  </div>
 
-   	 
-
+   	
    	  <div class="col-md-9">
              
 	          <div class="mb-3">
@@ -126,13 +125,15 @@
 	          <div class="mb-3">
 	          	  	<label for="password">New Password</label>
 	          	    <input  class="form-control new @error('password') is-invalid @enderror" type="password" name="password" disabled>
-	          
-	          </div>
-	            @error('password') 
+
+	          	      @error('password') 
                           
                           <small class="invalid-feedback"> {{$message}}</small>
                          
-	            @enderror
+	                   @enderror	
+	          
+	          </div>
+	          
 
 	           <div class="mb-3">
 	          	  <label for="password_confirmation">Confirm Password</label>
@@ -140,12 +141,11 @@
 	          	    @error('password_confirmation')                           
                           <small class="invalid-feedback"> {{$message}}</small>
 	          	    @enderror
-	          </div>
+	            </div>
               
 	          <button class="btn btn-success"> <i class="fas fa-save"></i> Save</button>
-
-   	  	
    	  </div>
+
    </div>
 
 

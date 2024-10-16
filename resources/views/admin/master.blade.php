@@ -89,7 +89,7 @@
          .sidebar .nav-item .nav-link {
                 text-align: right;      
         }
-         .sidebar .nav-item .nav-link[data-toggle=collapse]::after {  
+        .sidebar .nav-item .nav-link[data-toggle=collapse]::after {  
             float: left;
             transform: rotate(180deg);
         }
@@ -247,9 +247,6 @@
                                 </span>
 
                                @php 
-                                   
-                                  
-                                  
                                   if(Auth::user()->image) {
                                     $src= asset('images/'.Auth::user()->image->path);
                                   }else {
@@ -339,7 +336,6 @@
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <form action="{{route('logout')}}" method="POST"> 
                       @csrf
-
                       <button class="btn btn-primary"> {{__('admin.out')}} </button>
 
                     </form>
