@@ -24,36 +24,40 @@
         <th>{{__('admin.total')}}</th>
         <th>{{__('admin.action')}}</th>
      </tr>
+      @php $total = 0; @endphp
       @forelse($carts as $cart)
      <tr>
         <td> {{$loop->iteration}}</td>
         <td>{{$cart->product->trans_name}}</td>
-        <td>${{$cart->product->price}}</td>
+        <td>${{number_format($cart->product->price, 2) }}</td>
         <td>{{$cart->quantity}}</td>
-        <td>${{$cart->total}}</td>
+        <td>${{ number_format($cart->total, 2) }}</td>
         <td>
+
             <form class="d-inline" action="{{route('front.remove', $cart->id)}}" method="POST">
                 @csrf
                 @method('DELETE')
 
                 <button onclick="return confirm('Are You Sure ?!')" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i></button>
+                 
             </form>
             
         </td>
      </tr>
-     @php 
-        $newtotal = 0;
-        $final_total = $newtotal + $cart->total; 
-     @endphp
-     <h3> 
-         {{$final_total}}
-     </h3>
+     @php $total += $cart->total; @endphp
+    
       @empty
        <tr>
           <td colspan="10" class="text-center"> No Data Found </td>
        </tr>
-
       @endforelse
+      @if($total > 0) 
+      <tr>
+        <td colspan="4" class="text-right"><strong>All Total</strong></td>
+        <td><strong>${{ number_format($total, 2) }}</strong></td>
+        <td></td>
+      </tr>
+      @endif
       @else 
         <p> Your Cart is empty</p>
       @endif
