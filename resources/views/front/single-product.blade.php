@@ -117,8 +117,8 @@
 
                                         
                       
-                     <form action="{{route('front.mycart', $product->id)}}" method="POST">
-                                @csrf
+                     <form action="{{route('front.store_cart', $product->id)}}" method="POST">
+                             @csrf
                             <div class="right-content">
                                 <div class="quantity buttons_added">
                                     <input type="button" value="-" class="minus">

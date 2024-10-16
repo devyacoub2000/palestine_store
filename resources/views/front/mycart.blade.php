@@ -37,11 +37,17 @@
                 @method('DELETE')
 
                 <button onclick="return confirm('Are You Sure ?!')" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i></button>
-
             </form>
             
         </td>
      </tr>
+     @php 
+        $newtotal = 0;
+        $final_total = $newtotal + $cart->total; 
+     @endphp
+     <h3> 
+         {{$final_total}}
+     </h3>
       @empty
        <tr>
           <td colspan="10" class="text-center"> No Data Found </td>

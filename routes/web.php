@@ -25,7 +25,7 @@ Route::prefix(LaravelLocalization::setLocale())->group(function() {
             Route::get('products/{id}', [FrontController::class, 'single_product'])->name('front.single_product');
 
             Route::get('/dashboard', function () {
-            return view('dashboard');
+              return view('dashboard');
             })->middleware(['auth', 'verified'])->name('dashboard');
 
             Route::middleware('auth')->group(function () {
