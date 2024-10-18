@@ -78,7 +78,7 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="{{route('front.index')}}" class="logo">
+                        <a href="{{url('/')}}" class="logo">
                             <img src="{{asset('assets/images/logo.png')}}">
                         </a>
                         <!-- ***** Logo End ***** -->
@@ -134,6 +134,14 @@
                              @endif
 
                             @endforeach
+
+                            @guest
+                            <li class="scroll-to-section">
+                                <a href="{{route('login')}}">
+                                    Login
+                                </a>
+                            </li>
+                            @endguest
 
                             @auth
                             <li class="scroll-to-section">

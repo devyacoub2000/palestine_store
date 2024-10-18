@@ -23,9 +23,9 @@ Route::prefix(LaravelLocalization::setLocale())->group(function() {
             Route::get('category/{id}', [FrontController::class, 'category'])->name('front.category');
             Route::get('products/{id}', [FrontController::class, 'single_product'])->name('front.single_product');
 
-            // Route::get('/dashboard', function () {
-            //   return view('dashboard');
-            // })->middleware(['auth', 'verified'])->name('dashboard');
+            Route::get('/index', [FrontController::class, 'index'])->middleware(['auth'])->name('front.index');
+            
+            // Route::get('/index', [FrontController::class, 'index'])->middleware(['auth', 'verified'])->name('front.index');
 
             Route::middleware('auth')->group(function () {
             Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
