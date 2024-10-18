@@ -24,7 +24,7 @@
                             <span>${{$product->price}}</span>
                             <ul class="stars">        
                                  
-                 @foreach($product->reviews()->limit(4)->latest('id')->get() as $review)
+                 @foreach($product->reviews()->limit(3)->latest('id')->get() as $review)
                
                  <li>       
                     <div>

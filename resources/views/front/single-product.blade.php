@@ -102,8 +102,12 @@
             <div id="responseMsg"></div> 
 
 
-
-                    <h3>Average Rating: {{ $product->averageRating() }}</h3>
+                    @if($product->averageRating() > 0)
+                        <h3>Average Rating: {{ $product->averageRating() }}</h3>
+                    @else
+                         <h3>Not yet rated</h3>
+    
+                    @endif
 
                     <span> {{$product->trans_description}} </span>
                    
