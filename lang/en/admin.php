@@ -42,6 +42,7 @@
       'total' => 'Total',
 
       'product' => 'Product' ,
+      'order' => 'Order' ,
       
 
 

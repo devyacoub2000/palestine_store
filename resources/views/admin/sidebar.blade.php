@@ -65,7 +65,7 @@
 
            <!-- Nav Item - Dashboard -->
            <li class="nav-item">
-               <a class="nav-link" href="{{route('admin.orders')}}">
+               <a class="nav-link" href="{{route('admin.all_orders')}}">
                    <i class="fas fa-fw fa-shopping-cart"></i>
                    <span>{{__('admin.orders')}}</span></a>
            </li>

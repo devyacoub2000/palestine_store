@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -21,12 +22,17 @@ Route::prefix(LaravelLocalization::setLocale())->middleware('auth', 'is_admin', 
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
     Route::get('/deleImg/{id?}', [ProductController::class, 'delete_img'])->name('delete_img');
-    Route::get('orders', [AdminController::class, 'orders'])->name('orders');
+    // Route::get('orders', [AdminController::class, 'orders'])->name('orders');
    
     Route::get('notifications', [AdminController::class, 'notifications'])->name('notifications');
 
     Route::resource('team', TeamController::class);
     Route::resource('service', ServiceController::class);
+    Route::get('orders', [OrderController::class, 'all_orders'])->name('all_orders');
+    Route::get('single_order/{id}', [OrderController::class, 'single_order'])
+    ->name('single_order');
+
+
 });
 
 });

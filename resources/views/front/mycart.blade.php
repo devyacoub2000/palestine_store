@@ -6,14 +6,15 @@
 
      @section('css')
         <style type="text/css">
-             table {
-                margin-top: 100px;
-             }
+
         </style>
      @endsection
 
     @section('content') 
-  
+    <div class="main-banner" id="top">
+      
+    </div>
+ <section> 
  <table class="table table-bordered table-hover">
     @if($carts->isNotEmpty())
      <tr class="bg-dark text-white">
@@ -57,9 +58,19 @@
         <td><strong>${{ number_format($total, 2) }}</strong></td>
         <td></td>
       </tr>
+
+      <tr>
+          <td colspan="6">
+              <form class="text-center" action="{{route('front.create_order')}}" method="POST">
+                  @csrf
+                 <input type="hidden" name="total" value="{{ $total }}">
+                 <button type="submit" class="btn btn-success">Complete Order</button>
+              </form>
+          </td>
+      </tr>
       @endif
       @else 
-        <p> Your Cart is empty</p>
+        <p class="text-center"> Your Cart is empty</p>
       @endif
 
  </table>
@@ -71,6 +82,7 @@
         </button>
        </div>
   @endif
+  </section>
       
     @endsection
 

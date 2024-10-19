@@ -6,6 +6,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -24,7 +25,7 @@ Route::prefix(LaravelLocalization::setLocale())->group(function() {
             Route::get('products/{id}', [FrontController::class, 'single_product'])->name('front.single_product');
 
             Route::get('/index', [FrontController::class, 'index'])->middleware(['auth'])->name('front.index');
-            
+
             // Route::get('/index', [FrontController::class, 'index'])->middleware(['auth', 'verified'])->name('front.index');
 
             Route::middleware('auth')->group(function () {
@@ -50,6 +51,10 @@ Route::prefix(LaravelLocalization::setLocale())->group(function() {
 
             Route::get('mycart', [CartController::class, 'mycart'])->name('front.mycart');
             Route::delete('remove_cart/{id}', [CartController::class, 'remove'])->name('front.remove');
+
+            // make Order
+
+            Route::post('create_order', [OrderController::class, 'create_order'])->name('front.create_order');
 
             
           });  

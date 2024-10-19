@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -58,7 +59,9 @@ class CartController extends Controller
 
       public function mycart() {
           $carts = Cart::where('user_id', Auth::id())->latest('id')->get();
-          return view('front.mycart', compact('carts'));
+          $categories = Category::all();
+
+          return view('front.mycart', compact('carts', 'categories'));
       }
 
       public function remove($id)  {
